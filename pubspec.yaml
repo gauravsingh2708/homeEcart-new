@@ -1,0 +1,105 @@
+name: homeecart
+description: A new Flutter application.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  carousel_slider: ^2.1.0
+  cloud_firestore: ^1.0.3
+  connectivity: ^3.0.2
+  country_code_picker: ^1.7.0
+  cupertino_icons: ^1.0.0
+  firebase_auth: ^1.0.1
+  firebase_core: ^1.0.2
+  flag: ^3.2.2
+  flutter:
+    sdk: flutter
+  flutter_countdown_timer: ^4.0.2
+  flutter_screenutil: ^4.0.4+1
+  flutter_snake_navigationbar: ^0.5.0
+  get: ^3.26.0
+  google_fonts: any
+  logger: ^0.9.4
+  pin_code_fields: ^7.0.0
+  pull_to_refresh: ^1.6.4
+  simple_tooltip: ^0.1.16
+
+dev_dependencies:
+  change_app_package_name: ^0.1.2
+  # native icons & splash
+#  flutter_launcher_icons: any
+#  flutter_native_splash: any
+  flutter_test:
+    sdk: flutter
+
+
+# flutter icons setup
+#flutter_icons:
+#  android: true
+#  ios: true
+#  image_path: "assets/images/icon.png"
+
+# flutter splash screen setup
+#flutter_native_splash:
+#  image: assets/img/splash.png
+#  color: "#FFEB3B"
+#  android_disable_fullscreen: true
+
+flutter:
+
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/img/bestOffers1.png
+    - assets/img/banner.png
+    - assets/img/bar.png
+    - assets/img/bestOffers2.png
+    - assets/img/bestOffers3.png
+    - assets/img/bestOffers4.png
+    - assets/img/cat1.png
+    - assets/img/cat2.png
+    - assets/img/cat3.png
+    - assets/img/cat4.png
+    - assets/img/cat5.png
+    - assets/img/cat6.png
+    - assets/img/cat7.png
+    - assets/img/cat8.png
+    - assets/img/cat9.png
+    - assets/img/cat10.png
+    - assets/img/cat11.png
+    - assets/img/cat12.png
+    - assets/img/login_background.jpeg
+    - assets/img/splash.png
+    - assets/img/schomeSlider.png
+    - assets/img/smartcrewHomeSliders.png
+    - assets/img/images (1).png
+    - assets/img/appliances1.png
+    - assets/img/appliances2.png
+    - assets/img/appliances3.png
+    - assets/img/appliances4.png
+    - assets/img/cleaning1.png
+    - assets/img/cleaning2.png
+    - assets/img/cleaning3.png
+    - assets/img/icon.png
+    - assets/img/loading.gif
+  #   - images/a_dot_ham.jpeg
+
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages
