@@ -22,7 +22,7 @@ class Product {
     price = data['Price'] as double;
     discountPrice = data['DiscountPrice'] as double;
     name = data['Name'] as String;
-    imageUrl = data['ImageUrl'] as String;
+    imageUrl = data['imageUrl'] as String;
     marketName = data['MarketName'] as String;
     purchasePrice = data['PurchasedPrice'] as double;
     categoryName = data['CategoryName'] as String;

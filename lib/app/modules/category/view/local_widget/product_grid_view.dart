@@ -6,18 +6,15 @@ class ProductGridView extends StatelessWidget {
   ProductGridView({this.productList});
   final List<Product> productList;
   @override
-  Widget build(BuildContext context) => Padding(
-    padding: const EdgeInsets.all(8.0),
+  Widget build(BuildContext context) => Container(
+    color: Colors.grey,
     child: GridView.count(
-        crossAxisCount: 8,
+        crossAxisCount: 2,
         crossAxisSpacing: 1,
+        childAspectRatio: 5.5 / 9.0,
+        mainAxisSpacing: 1,
         // mainAxisSpacing: 0.5,
-        children: List.generate(productList.length, (index)=> InkWell(
-          onTap: () {
-            // RoutesManagement.goToCategoryScreen(categoryItem[index].name,categoryItem[index].id);
-          },
-          child: ProductCard(),
-        ))
+        children: List.generate(productList.length, (index)=> productCard(productInfo: productList[index],))
     ),
   );
 }

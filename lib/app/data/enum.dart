@@ -8,3 +8,8 @@ enum PageStatus {
   error,
   success,
 }
+
+enum PostType{
+  products,
+  services,
+}

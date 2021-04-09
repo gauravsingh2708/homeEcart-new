@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:homeecart/app/global_widgets/loading_widget.dart';
+import 'package:homeecart/app/global_widgets/post.dart';
 import 'package:homeecart/app/modules/home/view/local_widget/category_grid_view.dart';
 import 'package:homeecart/app/modules/home/view/local_widget/poster.dart';
 import 'package:homeecart/app/modules/home/view/local_widget/search_and_location.dart';
@@ -73,6 +74,7 @@ class Home extends StatelessWidget {
                 _controller.bannerModel.imageUrl == null
                     ?loadingWidget(height: 200, width: Dimens.screenWidth,padding:const EdgeInsets.symmetric(vertical: 16), )
                     :Poster(imageUrl: _controller.bannerModel.imageUrl,),
+                ProductPost(),
                 Container(
                   height: Dimens.screenHeight - 150,
                   width: Dimens.screenWidth,

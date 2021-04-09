@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:homeecart/app/data/firebase_collection.dart';
 import 'package:homeecart/app/data/network_model/product.dart';
+import 'package:homeecart/app/utils/utility.dart';
 
 class CategoryController extends GetxController{
   String title = '';
@@ -24,6 +25,7 @@ class CategoryController extends GetxController{
     productList = [];
     await FirebaseCollections.product.where('CategoryId',isEqualTo: Get.arguments['id'],).get().then((QuerySnapshot querySnapshot) {
       for(var i in querySnapshot.docs){
+        Utility.printILog('${i.data()}');
         productList.add(Product.fromJson(i.data()));
       }
     }).whenComplete(update);
