@@ -74,7 +74,9 @@ class Home extends StatelessWidget {
                 _controller.bannerModel.imageUrl == null
                     ?loadingWidget(height: 200, width: Dimens.screenWidth,padding:const EdgeInsets.symmetric(vertical: 16), )
                     :Poster(imageUrl: _controller.bannerModel.imageUrl,),
-                ProductPost(),
+                _controller.productListPost.isNotEmpty
+                    ?Post(productPost: _controller.productPost,productList: _controller.productListPost,)
+                    :const SizedBox(),
                 Container(
                   height: Dimens.screenHeight - 150,
                   width: Dimens.screenWidth,

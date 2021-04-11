@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 
 abstract class Utility{
@@ -20,5 +21,19 @@ abstract class Utility{
   /// [message] : The message which needed to be print.
   static void printELog(String message) {
     Logger().e('$message');
+  }
+
+  /// Close any open dialog.
+  static void closeDialog() {
+    if (Get.isDialogOpen ?? false) Get.back<void>();
+  }
+  /// Show no internet dialog if there is no
+  /// internet available.
+  static void showNoInternetDialog() {
+    closeDialog();
+    Get.dialog<void>(
+      NoInternetWidget(),
+      barrierDismissible: false,
+    );
   }
 }

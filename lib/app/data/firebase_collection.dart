@@ -6,4 +6,6 @@ abstract class FirebaseCollections{
   static CollectionReference slider = FirebaseFirestore.instance.collection(AppConstants.slider);
   static CollectionReference banner = FirebaseFirestore.instance.collection(AppConstants.banner);
   static CollectionReference product = FirebaseFirestore.instance.collection(AppConstants.product);
+  static CollectionReference post = FirebaseFirestore.instance.collection(AppConstants.post);
+
 }

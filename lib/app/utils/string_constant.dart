@@ -3,7 +3,7 @@ abstract class AppConstants{
   static const product = 'product';
   static const slider = 'slider';
   static const banner = 'banner';
-
+  static const post = 'post';
 
   static const id = 'id';
   static const title = 'title';

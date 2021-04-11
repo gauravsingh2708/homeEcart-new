@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:homeecart/app/data/firebase_collection.dart';
 import 'package:homeecart/app/data/network_model/category.dart';
+import 'package:homeecart/app/data/network_model/post.dart';
+import 'package:homeecart/app/data/network_model/product.dart';
 import 'package:homeecart/app/data/network_model/slider.dart';
 import 'package:homeecart/app/utils/string_constant.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -10,7 +12,8 @@ import 'package:homeecart/app/modules/home/view/home_view.dart';
 
 class HomeController extends GetxController {
   /// A pull down controllers to handle the refresh
-  final RefreshController homeRefreshController = RefreshController(initialRefresh: false);
+  final RefreshController homeRefreshController =
+      RefreshController(initialRefresh: false);
 
   ///Flag to show toolTips
   bool showToolTips = true;
@@ -20,19 +23,27 @@ class HomeController extends GetxController {
 
   /// Current index in [HomeView]
   int currentTab = 0;
+
   ///List to store category object
   List<Category> categoryItem = <Category>[];
 
   ///List to store slider data
   List<SliderModel> sliderItem = <SliderModel>[];
 
+  List<Product> productListPost = [];
+
+  ProductPost productPost = ProductPost();
+
   BannerModel bannerModel = BannerModel();
+
   ///Fetch category data from firebase
   Future<void> getCategory() async {
     categoryItem = [];
     update();
-    await FirebaseCollections.category.get().then((QuerySnapshot querySnapshot) {
-      for(var i in querySnapshot.docs){
+    await FirebaseCollections.category
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      for (var i in querySnapshot.docs) {
         categoryItem.add(Category.fromJson(i.data()));
       }
     }).whenComplete(update);
@@ -42,7 +53,7 @@ class HomeController extends GetxController {
     sliderItem = [];
     update();
     await FirebaseCollections.slider.get().then((QuerySnapshot querySnapshot) {
-      for(var i in querySnapshot.docs){
+      for (var i in querySnapshot.docs) {
         sliderItem.add(SliderModel.fromJson(i.data()));
       }
     }).whenComplete(update);
@@ -56,7 +67,25 @@ class HomeController extends GetxController {
     }).whenComplete(update);
   }
 
-
+  Future<void> getPost() async {
+    productListPost = [];
+    update();
+    await FirebaseCollections.post.get().then((QuerySnapshot querySnapshot) {
+      for (var i in querySnapshot.docs) {
+        print(i.data());
+        productPost = ProductPost.fromJson(i.data());
+      }
+      for (var i = 0; i < productPost.productList.length; i++) {
+        FirebaseCollections.product
+            .where('Id', isEqualTo: 1)
+            .get()
+            .then((QuerySnapshot querySnapshot) => productListPost
+                .add(Product.fromJson(querySnapshot.docs[0].data())))
+                .whenComplete(update);
+      }
+    }).whenComplete(update);
+    print(productListPost.length);
+  }
 
   @override
   void onInit() {
@@ -64,13 +93,16 @@ class HomeController extends GetxController {
     getCategory();
     getSlider();
     getBanner();
+    getPost();
     super.onInit();
   }
+
   ///Function call when refresh home page
   void refreshHomePage() async {
     await getCategory();
     await getSlider();
     await getBanner();
+    await getPost();
     homeRefreshController.refreshCompleted();
   }
 
@@ -99,19 +131,4 @@ class HomeController extends GetxController {
     currentTab = index;
     update();
   }
-
-  List<String> categoryList = <String>[
-    'Salon for Women',
-    'Massage for Women',
-    'Salon for men',
-    'Massage for men',
-    'AC Service & Repair',
-    'Appliance repair',
-    'Painter',
-    'Cleaning and Disinfection',
-    'Electricians',
-    'Plumbers',
-    'Carpenters',
-    'Pest Control'
-  ];
 }
