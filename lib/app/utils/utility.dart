@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:homeecart/app/global_widgets/no_internet_widget.dart';
 import 'package:logger/logger.dart';
 
 abstract class Utility{

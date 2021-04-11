@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:heat_dance/app/theme/theme.dart';
-import 'package:heat_dance/app/utils/utils.dart';
 import 'package:homeecart/app/theme/theme.dart';
 
 /// A no internet widget which will be shown if network connection is not
@@ -15,8 +13,7 @@ class NoInternetWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            StringConstants.noInternet,
+          Text('No Internet',
             textAlign: TextAlign.center,
             style: Styles.boldWhite23,
           ),

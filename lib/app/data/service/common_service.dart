@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:get/get.dart';
+import 'package:homeecart/app/utils/utility.dart';
 
 /// A controller which will be used to handle the basic
 /// operations in the application. This will be used to separate the UI related
