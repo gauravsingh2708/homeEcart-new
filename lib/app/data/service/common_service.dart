@@ -10,6 +10,19 @@ import 'package:homeecart/app/utils/utility.dart';
 class CommonService extends GetxController{
   /// This is used for internet change listener
   StreamSubscription _streamSubscription;
+  ///This is used store the count of the product in cart
+  int cartCount = 2;
+  @override
+  void onInit() {
+    _checkForInternetConnectivity();
+    super.onInit();
+  }
+
+  @override
+  void onClose() {
+    _streamSubscription.cancel();
+    super.onClose();
+  }
 
   /// Starts the check for internet connectivity. If there is no connection
   /// with the internet a text message will be shown. If the application

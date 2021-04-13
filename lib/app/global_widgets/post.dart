@@ -11,19 +11,19 @@ class Post extends StatelessWidget {
   final ProductPost productPost;
   @override
   Widget build(BuildContext context) => Container(
-    height: Dimens.screenHeight - 140,
+    height: Dimens.screenHeight - 180,
     width: Dimens.screenWidth,
     margin: const EdgeInsets.only(bottom: 13),
     color: Colors.white,
     child: Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(10.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(
-            height: 20,
-          ),
+          // const SizedBox(
+          //   height: 20,
+          // ),
           Text(productPost.title,
             style: Styles.blackBold18.copyWith(fontSize: 20),
           ),
@@ -38,17 +38,17 @@ class Post extends StatelessWidget {
             height: Dimens.screenHeight - 340,
             width: Dimens.screenWidth,
             margin: const EdgeInsets.only(bottom: 13),
-
             child: GridView.count(
               physics: const NeverScrollableScrollPhysics(),
                 crossAxisCount: 2,
-                crossAxisSpacing: 8,
+                crossAxisSpacing: 1,
                 childAspectRatio: 1,
                 mainAxisSpacing: 1,
                 // mainAxisSpacing: 0.5,
-                children: List.generate(productList.length, (index)=> SizedBox(
+                children: List.generate(productList.length, (index)=> Container(
                   height: (Dimens.screenHeight - 200) / 3 + 10,
                   width: (Dimens.screenWidth) / 2 - 24,
+                  color: ColorsValue.greyColor.withOpacity(0.1),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,9 +57,6 @@ class Post extends StatelessWidget {
                         height: 120,
                         width: double.infinity,
                         decoration: BoxDecoration(
-                            color: ColorsValue.primaryColor.withOpacity(0.1),
-                            border: Border.all(width: 0.4,color: ColorsValue.primaryColor),
-                            borderRadius: BorderRadius.circular(5),
                             image:  DecorationImage(
                               image: NetworkImage(productList[index].imageUrl),
                               fit: BoxFit.contain,
@@ -69,10 +66,10 @@ class Post extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      Text(productList[index].name,style: Styles.black12,),
+                      Text(' ${productList[index].name}',style: Styles.black12,),
                       Row(
                         children: [
-                          Text('₹',style: Styles.black18),
+                          Text(' ₹',style: Styles.black18),
                           Text(
                             '${productList[index].discountPrice}',
                             style: Styles.black18.copyWith(),

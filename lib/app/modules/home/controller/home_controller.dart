@@ -6,6 +6,9 @@ import 'package:homeecart/app/data/network_model/category.dart';
 import 'package:homeecart/app/data/network_model/post.dart';
 import 'package:homeecart/app/data/network_model/product.dart';
 import 'package:homeecart/app/data/network_model/slider.dart';
+import 'package:homeecart/app/data/service/common_service.dart';
+import 'package:homeecart/app/theme/colors_value.dart';
+import 'package:homeecart/app/theme/theme.dart';
 import 'package:homeecart/app/utils/string_constant.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:homeecart/app/modules/home/view/home_view.dart';
@@ -81,7 +84,7 @@ class HomeController extends GetxController {
             .get()
             .then((QuerySnapshot querySnapshot) => productListPost
                 .add(Product.fromJson(querySnapshot.docs[0].data())))
-                .whenComplete(update);
+            .whenComplete(update);
       }
     }).whenComplete(update);
     print(productListPost.length);
@@ -118,9 +121,29 @@ class HomeController extends GetxController {
 
   final List<BottomNavigationBarItem> tab = <BottomNavigationBarItem>[
     const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-    const BottomNavigationBarItem(icon: Icon(Icons.receipt), label: 'Bookings'),
-    const BottomNavigationBarItem(
-        icon: Icon(Icons.check_circle), label: 'SC Safe'),
+    const BottomNavigationBarItem(icon: Icon(Icons.shopping_basket_sharp), label: 'Markets'),
+    BottomNavigationBarItem(
+        icon: Container(
+          child: Stack(
+            children: [
+              const Icon(Icons.shopping_cart_outlined),
+              Container(
+                height: 12,
+                width: 12,
+                decoration: const BoxDecoration(
+                    shape: BoxShape.circle, color: ColorsValue.primaryColor),
+                child: Center(
+                    child: GetBuilder<CommonService>(
+                        builder: (_controller) => Text(
+                              '${_controller.cartCount}',
+                              style: Styles.white10
+                                  .copyWith(fontSize: 10, height: 1),
+                            ))),
+              )
+            ],
+          ),
+        ),
+        label: 'Cart'),
     const BottomNavigationBarItem(
         icon: Icon(Icons.account_balance_wallet_outlined), label: 'Rewards'),
     const BottomNavigationBarItem(
