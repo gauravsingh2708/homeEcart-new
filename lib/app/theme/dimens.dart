@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 /// Contains the dimensions and padding used
 /// all over the application.
 abstract class Dimens {
+  static double infinite= double.infinity;
   static double screenHeight = Get.mediaQuery.size.height;
   static double screenWidth = Get.mediaQuery.size.width;
   static double sixTeen = 16.nsp;

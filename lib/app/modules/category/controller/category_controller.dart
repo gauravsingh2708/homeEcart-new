@@ -6,11 +6,11 @@ import 'package:homeecart/app/utils/utility.dart';
 
 class CategoryController extends GetxController{
   String title = '';
-  int id;
+  String id;
 
   void initialSetup(Map<String, dynamic> arguments){
     title = arguments['title'] as String;
-    id = arguments['id'] as int;
+    id = arguments['id'] as String;
     print(arguments);
   }
 
@@ -20,7 +20,7 @@ class CategoryController extends GetxController{
     super.onInit();
   }
 
-  List<Product> productList;
+  List<Product> productList = <Product>[];
   Future<void> getProduct() async {
     productList = [];
     await FirebaseCollections.product.where('CategoryId',isEqualTo: Get.arguments['id'],).get().then((QuerySnapshot querySnapshot) {

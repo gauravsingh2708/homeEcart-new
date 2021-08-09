@@ -1,6 +1,6 @@
 abstract class AppConstants{
-  static const category = 'category';
-  static const product = 'product';
+  static const category = 'CATEGORY';
+  static const product = 'PRODUCT';
   static const slider = 'slider';
   static const banner = 'banner';
   static const post = 'post';

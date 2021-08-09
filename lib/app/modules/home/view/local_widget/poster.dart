@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:homeecart/app/global_widgets/cached_image.dart';
 import 'package:homeecart/app/theme/theme.dart';
 
 class Poster extends StatelessWidget {
@@ -12,11 +13,6 @@ class Poster extends StatelessWidget {
       vertical: 2,
       horizontal: 2,
     ),
-    decoration: BoxDecoration(
-        image: DecorationImage(
-          image: NetworkImage(imageUrl),
-          fit: BoxFit.fitWidth,
-          // colorFilter: ColorFilter.mode(Colors.black26, BlendMode.darken)
-        )),
+    child: CachedImage(imageUrl: imageUrl,),
   );
 }

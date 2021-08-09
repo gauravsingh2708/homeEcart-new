@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,17 +8,17 @@ import 'package:homeecart/app/data/network_model/category.dart';
 import 'package:homeecart/app/data/network_model/post.dart';
 import 'package:homeecart/app/data/network_model/product.dart';
 import 'package:homeecart/app/data/network_model/slider.dart';
-import 'package:homeecart/app/data/service/common_service.dart';
-import 'package:homeecart/app/theme/colors_value.dart';
-import 'package:homeecart/app/theme/theme.dart';
-import 'package:homeecart/app/utils/string_constant.dart';
+import 'package:homeecart/app/data/service/user_service.dart';
+import 'package:homeecart/app/utils/utility.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:homeecart/app/modules/home/view/home_view.dart';
 
 class HomeController extends GetxController {
+  /// Instance of UserService controller
+  final UserService controller = Get.find();
+
   /// A pull down controllers to handle the refresh
-  final RefreshController homeRefreshController =
-      RefreshController(initialRefresh: false);
+  final RefreshController homeRefreshController = RefreshController(initialRefresh: false);
 
   ///Flag to show toolTips
   bool showToolTips = true;
@@ -39,6 +41,36 @@ class HomeController extends GetxController {
 
   BannerModel bannerModel = BannerModel();
 
+  @override
+  void onInit() {
+    Get.put( UserService(), permanent: true,);
+    scrollController = ScrollController()..addListener(_scrollListener);
+    getCategory();
+    getSlider();
+    getBanner();
+    getPost();
+    super.onInit();
+  }
+
+  /// A method which will listen to any scroll changes
+  void _scrollListener() {
+    innerTitlePadding = min(scrollController.offset < 0 ? 0 : scrollController.offset, 52);
+    innerTitleOpacity = (innerTitlePadding == 52)
+        ? 0
+        : scrollController.offset * 0.01 > 1
+        ? 0
+        : 1 - scrollController.offset * 0.01;
+    if (innerTitleOpacity < 0) innerTitleOpacity = 0;
+    if (innerTitleOpacity > 1) innerTitleOpacity = 1;
+    update();
+  }
+
+  /// Set the opacity value for the inner title
+  double innerTitleOpacity = 1.0;
+
+  /// Set the left padding value for the inner title
+  double innerTitlePadding = 0.0;
+
   ///Fetch category data from firebase
   Future<void> getCategory() async {
     categoryItem = [];
@@ -49,6 +81,7 @@ class HomeController extends GetxController {
       for (var i in querySnapshot.docs) {
         categoryItem.add(Category.fromJson(i.data()));
       }
+      Utility.printDLog('length of category list is ${categoryItem.length}');
     }).whenComplete(update);
   }
 
@@ -90,15 +123,7 @@ class HomeController extends GetxController {
     print(productListPost.length);
   }
 
-  @override
-  void onInit() {
-    scrollController = ScrollController()..addListener(_scrollListener);
-    getCategory();
-    getSlider();
-    getBanner();
-    getPost();
-    super.onInit();
-  }
+
 
   ///Function call when refresh home page
   void refreshHomePage() async {
@@ -114,36 +139,15 @@ class HomeController extends GetxController {
     showToolTips = false;
     update();
   }
-
-  void _scrollListener() {
-    update();
-  }
+  //
+  // void _scrollListener() {
+  //   update();
+  // }
 
   final List<BottomNavigationBarItem> tab = <BottomNavigationBarItem>[
     const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
     const BottomNavigationBarItem(icon: Icon(Icons.shopping_basket_sharp), label: 'Markets'),
-    BottomNavigationBarItem(
-        icon: Container(
-          child: Stack(
-            children: [
-              const Icon(Icons.shopping_cart_outlined),
-              Container(
-                height: 12,
-                width: 12,
-                decoration: const BoxDecoration(
-                    shape: BoxShape.circle, color: ColorsValue.primaryColor),
-                child: Center(
-                    child: GetBuilder<CommonService>(
-                        builder: (_controller) => Text(
-                              '${_controller.cartCount}',
-                              style: Styles.white10
-                                  .copyWith(fontSize: 10, height: 1),
-                            ))),
-              )
-            ],
-          ),
-        ),
-        label: 'Cart'),
+    const BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
     const BottomNavigationBarItem(
         icon: Icon(Icons.account_balance_wallet_outlined), label: 'Rewards'),
     const BottomNavigationBarItem(

@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:homeecart/app/data/network_model/slider.dart';
+import 'package:homeecart/app/global_widgets/cached_image.dart';
 import 'package:homeecart/app/theme/theme.dart';
 
 class SliderCarousel extends StatelessWidget {
@@ -15,12 +16,13 @@ class SliderCarousel extends StatelessWidget {
       items: List.generate(sliderItem.length, (index) => Container(
         height: 200,
         width: Dimens.screenWidth,
-        decoration: BoxDecoration(
-            image:  DecorationImage(
-              image: NetworkImage(sliderItem[index].imageUrl),
-              fit: BoxFit.cover,
-              // colorFilter: ColorFilter.mode(Colors.black26, BlendMode.darken)
-            )),
+        // decoration: BoxDecoration(
+        //     image:  DecorationImage(
+        //       image: NetworkImage(sliderItem[index].imageUrl),
+        //       fit: BoxFit.cover,
+        //       // colorFilter: ColorFilter.mode(Colors.black26, BlendMode.darken)
+        //     )),
+        child:  CachedImage(imageUrl: sliderItem[index].imageUrl,),
       ),),
       options: CarouselOptions(
         height: 200,

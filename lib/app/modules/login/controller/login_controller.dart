@@ -2,6 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:homeecart/app/data/enum.dart';
+import 'package:homeecart/app/data/network_model/user.dart';
+import 'package:homeecart/app/data/repository/firebase_repository.dart';
+import 'package:homeecart/app/data/service/common_service.dart';
+import 'package:homeecart/app/data/service/user_service.dart';
 import 'package:homeecart/app/modules/login/view/page/otp_view.dart';
 import 'package:homeecart/app/routes/route_mangement.dart';
 import 'package:homeecart/app/utils/utility.dart';
@@ -13,31 +17,35 @@ class LoginController extends GetxController {
 
   String localVerificationId = '';
 
+  final CommonService _con = Get.find();
+
   ///Function is used to login user with phone number and otp
   Future<void> loginWithPhoneNumber(String phoneNumber) async {
     updatePageStatus(PageStatus.loading);
     try {
-      await auth.verifyPhoneNumber(
-          phoneNumber: '+91$phoneNumber',
-          timeout: const Duration(seconds: 60),
-          verificationCompleted: (AuthCredential authCredential) {
-            auth.signInWithCredential(authCredential).then((result) {
-              RoutesManagement.goToHome();
-            }).catchError((String e) {
-              print('Inside verification error');
-              Utility.printELog(e.toString());
-            });
-          },
-          verificationFailed: (authException) {
-            Utility.printELog(authException.message);
-          },
-          codeSent: (String verificationId, [int forceResendingToken]){
-            localVerificationId = verificationId;
-          },
-          codeAutoRetrievalTimeout: (String verificationId){
-            localVerificationId = verificationId;
-          }
-      ).whenComplete((){
+      await auth
+          .verifyPhoneNumber(
+              phoneNumber: '+91$phoneNumber',
+              timeout: const Duration(seconds: 60),
+              verificationCompleted: (AuthCredential authCredential) {
+                auth.signInWithCredential(authCredential).then((result) {
+                  RoutesManagement.goToHome();
+                }).catchError((String e) {
+                  print('Inside verification error');
+                  Utility.printELog(e.toString());
+                });
+              },
+              verificationFailed: (authException) {
+                Utility.printELog(authException.message);
+              },
+              codeSent: (String verificationId, [int forceResendingToken]) {
+                localVerificationId = verificationId;
+              },
+              codeAutoRetrievalTimeout: (String verificationId) {
+                localVerificationId = verificationId;
+              }
+              )
+          .whenComplete(() {
         updatePageStatus(PageStatus.idle);
         RoutesManagement.goToOtpScreen();
       });
@@ -47,10 +55,82 @@ class LoginController extends GetxController {
     }
   }
 
-  void loginWithOtp(){
+  UserCredential userCredential;
+  ConfirmationResult confirmationResult;
+
+  // Future<void> phoneSignInInWeb(String phoneNumber) async {
+  //   updatePageStatus(PageStatus.loading);
+  //   try{
+  //     confirmationResult = await auth.signInWithPhoneNumber('+91$phoneNumber',).whenComplete(() {
+  //       updatePageStatus(PageStatus.idle);
+  //       RoutesManagement.goToOtpScreen();
+  //     });
+  //
+  //   }
+  //   catch(onError){
+  //     updatePageStatus(PageStatus.idle);
+  //     Utility.printELog(onError.toString());
+  //   }
+  // }
+  //
+  // void loginWithOtpInWeb() async {
+  //   updatePageStatus(PageStatus.loading);
+  //   await confirmationResult.confirm(pin).then((value) async {
+  //     await auth.signInWithCredential(value.credential).then((value) async {
+  //       var user = UserModel()
+  //         ..phone = number
+  //         ..uid = value.user.uid
+  //         ..lat = _con.locationData.latitude
+  //         ..long = _con.locationData.longitude
+  //         ..address = _con.locationData.addressLine1
+  //         ..name = ' '
+  //         ..email = ' '
+  //         ..isMerchant = false;
+  //       await checkAndCreateUser(user);
+  //
+  //     });
+  //   });
+  //
+  // }
+
+  void loginWithOtp() async {
     updatePageStatus(PageStatus.loading);
-    final credential = PhoneAuthProvider.credential(verificationId: localVerificationId, smsCode: pin);
-    auth.signInWithCredential(credential).then((value) => RoutesManagement.goToHome());
+    final credential = PhoneAuthProvider.credential(
+        verificationId: localVerificationId,
+        smsCode: pin);
+    try{
+      await auth.signInWithCredential(credential).then((value) async {
+        var user = UserModel()
+          ..phone = number
+          ..uid = value.user.uid
+          ..lat = _con.locationData.latitude
+          ..long = _con.locationData.longitude
+          ..address = _con.locationData.addressLine1
+          ..name = ' '
+          ..email = ' '
+          ..isMerchant = false;
+        await checkAndCreateUser(user);
+      });
+    }
+    on FirebaseAuthException catch(e){
+      updatePageStatus(PageStatus.idle);
+      Utility.showError('${e.message}');
+    }
+
+
+  }
+
+  Future<void> checkAndCreateUser(UserModel user) async {
+    await FirebaseRepository().checkProfileCreate(user.uid).then((value) async {
+      Get.put(UserService(), permanent: true,);
+      Utility.printDLog('User created $value');
+      if (value) {
+        RoutesManagement.goToHome();
+      } else {
+        await FirebaseRepository().addUser(user);
+        RoutesManagement.goToHome();
+      }
+    });
   }
 
   /// Flag to show login button
@@ -58,7 +138,6 @@ class LoginController extends GetxController {
 
   /// The current status of the page.
   PageStatus pageStatus = PageStatus.idle;
-
 
   /// Variable to store mobile number
   String number = '';
@@ -78,7 +157,6 @@ class LoginController extends GetxController {
 
   TextEditingController textEditingController = TextEditingController();
 
-
   bool showCounter = true;
   bool hasError = false;
   String pin = '';
@@ -92,7 +170,7 @@ class LoginController extends GetxController {
     update();
   }
 
-  void updateCounterView(){
+  void updateCounterView() {
     showCounter = !showCounter;
     update();
   }
