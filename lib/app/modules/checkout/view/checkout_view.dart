@@ -6,6 +6,7 @@ import 'package:homeecart/app/data/repository/firebase_repository.dart';
 import 'package:homeecart/app/data/service/user_service.dart';
 import 'package:homeecart/app/global_widgets/price.dart';
 import 'package:homeecart/app/modules/checkout/controller/checkout_controller.dart';
+import 'package:homeecart/app/routes/route_mangement.dart';
 import 'package:homeecart/app/theme/theme.dart';
 import 'package:homeecart/app/utils/assets_constant.dart';
 
@@ -129,9 +130,9 @@ class CheckoutView extends StatelessWidget {
                       ),
                       Dimens.boxHeight20,
                       InkWell(
-                        // onTap: (){
-                        //   RoutesManagement.goToCheckout();
-                        // },
+                        onTap: (){
+                          _con.editAddress(_controller.userModel.address          );
+                        },
                         child: Container(
                           width: Dimens.screenWidth,
                           height: Dimens.fourty,
@@ -143,7 +144,7 @@ class CheckoutView extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                'Add New Address',
+                                'Edit Address',
                                 style: Styles.white16,
                               ),
                             ],
@@ -156,7 +157,7 @@ class CheckoutView extends StatelessWidget {
               ),
               GetBuilder<CheckoutController>(
                 builder:(_con)=> Container(
-                  height: Dimens.screenWidth*0.9,
+                  // height: Dimens.screenWidth*0.9,
                   width: Dimens.screenWidth,
                   margin: EdgeInsets.symmetric(horizontal: Dimens.eight,vertical: Dimens.eight),
                   padding: EdgeInsets.symmetric(horizontal: Dimens.eight,vertical: Dimens.eight),

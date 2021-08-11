@@ -9,7 +9,7 @@ import 'package:homeecart/app/theme/theme.dart';
 class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
-        backgroundColor: Colors.grey.withOpacity(0.4),
+        backgroundColor: Colors.grey.withOpacity(0.1),
         body: GetBuilder<UserService>(
             builder: (_controller) => ListView(
                   children: [
@@ -74,6 +74,20 @@ class Profile extends StatelessWidget {
                       height: 15,
                     ),
                     ProfileTile(
+                      title: 'Orders',
+                      icon: Icons.card_travel,
+                    ),
+                    const SizedBox(
+                      height: 2,
+                    ),
+                    ProfileTile(
+                      title: 'Favorites',
+                      icon: Icons.favorite,
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    ProfileTile(
                       title: 'HelpCenter',
                       icon: Icons.message,
                     ),
@@ -101,13 +115,13 @@ class Profile extends StatelessWidget {
                     const SizedBox(
                       height: 2,
                     ),
-                    ProfileTile(
-                      title: 'Refers & Earn',
-                      icon: Icons.money,
-                    ),
-                    const SizedBox(
-                      height: 2,
-                    ),
+                    // ProfileTile(
+                    //   title: 'Refers & Earn',
+                    //   icon: Icons.money,
+                    // ),
+                    // const SizedBox(
+                    //   height: 2,
+                    // ),
                     ProfileTile(
                       title: 'Rate HomeEcart',
                       icon: Icons.share,
@@ -115,13 +129,13 @@ class Profile extends StatelessWidget {
                     const SizedBox(
                       height: 2,
                     ),
-                    ProfileTile(
-                      title: 'Payments Option',
-                      icon: Icons.payment,
-                    ),
-                    const SizedBox(
-                      height: 2,
-                    ),
+                    // ProfileTile(
+                    //   title: 'Payments Option',
+                    //   icon: Icons.payment,
+                    // ),
+                    // const SizedBox(
+                    //   height: 2,
+                    // ),
                     const SizedBox(
                       height: 2,
                     ),
@@ -135,8 +149,13 @@ class Profile extends StatelessWidget {
                           icon: Icons.logout,
                         )),
                     const SizedBox(
-                      height: 2,
+                      height: 20,
                     ),
+                    Center(child: Text('HomeEcart',style: Styles.black18.copyWith(color: ColorsValue.primaryColor),)),
+                    const Padding(
+                      padding:  EdgeInsets.symmetric(horizontal: 30.0,vertical: 20),
+                      child:  Divider(color: Colors.black,),
+                    )
                   ],
                 )),
       );

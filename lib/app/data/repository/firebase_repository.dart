@@ -83,6 +83,12 @@ class FirebaseRepository {
   //   });
   // }
 
+  Future<void> updateAddress(String address) async {
+    await userCollection.doc(uid).update(<String,dynamic>{
+      'address':address
+    });
+  }
+
   /// Function add category
   void addCategory(Category category) async {
     var categoryRef = categoryCollection.doc();

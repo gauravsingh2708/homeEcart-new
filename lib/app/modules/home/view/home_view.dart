@@ -5,7 +5,6 @@ import 'package:homeecart/app/modules/home/view/local_widget/bottom_navigation.d
 import 'package:homeecart/app/modules/home/view/page/bookings.dart';
 import 'package:homeecart/app/modules/home/view/page/home.dart';
 import 'package:homeecart/app/modules/home/view/page/profile.dart';
-import 'package:homeecart/app/modules/home/view/page/reward.dart';
 import 'package:homeecart/app/modules/home/view/page/sc_safe.dart';
 
 class HomeView extends StatelessWidget {
@@ -20,7 +19,7 @@ class HomeView extends StatelessWidget {
           Home(),
           Bookings(),
           SCSafe(),
-          Rewards(),
+          // Rewards(),
           Profile()
         ],
       ),
