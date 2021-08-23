@@ -112,42 +112,28 @@ class CheckoutController extends GetxController {
                 maxLines: 3,
               ),
               const Spacer(),
-              editedAddress == null
-                  ? Container(
-                      margin: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 30),
-                      height: Dimens.fourty,
-                      width: Dimens.screenWidth,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: ColorsValue.primaryColor.withOpacity(0.4),
-                      ),
-                      child: Center(
-                          child: Text(
-                        'Update',
-                        style: Styles.white16,
-                      )),
-                    )
-                  : InkWell(
-                      onTap: () async {
-                        await FirebaseRepository().updateAddress(editedAddress).whenComplete(Utility.closeDialog);
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(
-                            vertical: 10, horizontal: 30),
-                        height: Dimens.fourty,
-                        width: Dimens.screenWidth,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: ColorsValue.primaryColor,
-                        ),
-                        child: Center(
-                            child: Text(
-                          'Update',
-                          style: Styles.white16,
-                        )),
-                      ),
-                    ),
+              InkWell(
+                onTap: () async {
+                  await FirebaseRepository()
+                      .updateAddress(editedAddress)
+                      .whenComplete(Utility.closeDialog);
+                },
+                child: Container(
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+                  height: Dimens.fourty,
+                  width: Dimens.screenWidth,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: ColorsValue.primaryColor,
+                  ),
+                  child: Center(
+                      child: Text(
+                    'Update',
+                    style: Styles.white16,
+                  )),
+                ),
+              ),
               Dimens.boxHeight30
             ],
           ),
