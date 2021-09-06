@@ -10,6 +10,7 @@ abstract class AppRoutes{
   static const category = _Paths.category;
   static const search = _Paths.search;
   static const cart = _Paths.cart;
+  static const editAddress = _Paths.editAddress;
   /// Routes for admin panel
   static const admin = _Paths.admin;
   static const product = _Paths.product;
@@ -32,6 +33,8 @@ abstract class _Paths{
   static const cart = '/cart';
   static const editProfile = '/edit_profile';
   static const checkout = '/checkout';
+  static const editAddress = '/edit_address';
+
   /// Routes for admin panel
   static const admin = '/admin';
   static const product = '/product';

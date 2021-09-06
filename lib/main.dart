@@ -45,14 +45,14 @@ class MyApp extends StatelessWidget {
   MyApp({this.uid});
   final String uid;
   @override
-  Widget build(BuildContext context) => ScreenUtilInit(
+  Widget build(BuildContext context) =>  ScreenUtilInit(
         designSize: const Size(375, 745),
         builder: () => GetMaterialApp(
-          title: 'HomeEcart',
-          theme: Styles.lightTheme,
-          debugShowCheckedModeBanner: false,
-          getPages: AppPages.pages,
-          initialRoute: uid.isNotEmpty ? AppRoutes.home : AppRoutes.login,
-        ),
+                title: 'HomeEcart',
+                theme: Styles.lightTheme,
+                debugShowCheckedModeBanner: false,
+                getPages: AppPages.pages,
+                initialRoute: uid.isNotEmpty ? AppRoutes.home : AppRoutes.login,
+              )
       );
 }

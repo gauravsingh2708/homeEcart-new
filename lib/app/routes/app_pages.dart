@@ -15,6 +15,8 @@ import 'package:homeecart/app/modules/category/view/category_view.dart';
 import 'package:homeecart/app/modules/category/view/local_widget/all_category.dart';
 import 'package:homeecart/app/modules/checkout/binding/checkout_binding.dart';
 import 'package:homeecart/app/modules/checkout/view/checkout_view.dart';
+import 'package:homeecart/app/modules/edit_address/binding/edit_address_binding.dart';
+import 'package:homeecart/app/modules/edit_address/view/edit_address_view.dart';
 import 'package:homeecart/app/modules/edit_profile/binding/edit_profile_binding.dart';
 import 'package:homeecart/app/modules/edit_profile/view/edit_profile_view.dart';
 import 'package:homeecart/app/modules/home/binding/home_binding.dart';
@@ -90,6 +92,15 @@ abstract class AppPages {
       binding: CheckoutBinding(),
       transition: Transition.downToUp,
     ),
+    GetPage(
+      name: _Paths.editAddress,
+      transitionDuration: transitionDuration,
+      page: () => EditAddressView(),
+      binding: EditAddressBinding(),
+      transition: Transition.downToUp,
+    ),
+
+
     /// Admin pages
     ///
     GetPage(

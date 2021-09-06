@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "254326252254",
+    "project_id": "homeecart-2c798",
+    "storage_bucket": "homeecart-2c798.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:254326252254:android:68838569f17682d75d584f",
+        "android_client_info": {
+          "package_name": "com.HomeEcart.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "254326252254-v2iqhu70i9bnba1tsc0h40vm0oafklbu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.HomeEcart.app",
+            "certificate_hash": "360a843b880463786d6cf8d292b7dc52c602c6b7"
+          }
+        },
+        {
+          "client_id": "254326252254-8sg49v7takhssafbgibsu95c8j9ui7fr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtZ7vasVbQ75vvh05JJdXl1KyVQ3slTZs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "254326252254-8sg49v7takhssafbgibsu95c8j9ui7fr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "254326252254-dst4ustdvhg5m2ung9844387e8iisc0v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.nix.homeecart"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

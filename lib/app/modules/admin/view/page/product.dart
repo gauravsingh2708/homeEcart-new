@@ -48,6 +48,7 @@ class Products extends StatelessWidget {
                     return Container(
                       height: Dimens.hundred*2,
                       width:  Dimens.screenWidth,
+                      margin: EdgeInsets.symmetric(vertical: Dimens.ten),
                       decoration: BoxDecoration(
                         border: Border.all(width: Dimens.one*0.5),
                         borderRadius: BorderRadius.circular(Dimens.twenty)

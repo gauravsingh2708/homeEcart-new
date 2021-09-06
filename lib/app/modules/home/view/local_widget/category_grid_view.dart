@@ -16,11 +16,12 @@ class CategoryGridView extends StatelessWidget {
     builder:(_controller)=> Column(
       children: [
         Container(
-            height: Dimens.hundred*0.95*3,
+            // height: Dimens.hundred*0.95*3,
             width: Dimens.screenWidth,
             color: Colors.grey,
             child: GridView.count(
               crossAxisCount: 4,
+               shrinkWrap: true,
               crossAxisSpacing: 0.5,
               mainAxisSpacing: 0.5,
               physics: const NeverScrollableScrollPhysics(),
@@ -30,7 +31,7 @@ class CategoryGridView extends StatelessWidget {
                 },
                 child: SizedBox(
                   width: Dimens.screenWidth / 4- 0.3,
-                  height: 310/3,
+                  height: (Dimens.hundred*3+Dimens.ten)/3,
                   child: Material(
                       color: Colors.white,
                       child: Column(

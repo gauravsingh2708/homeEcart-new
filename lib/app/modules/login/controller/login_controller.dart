@@ -100,16 +100,7 @@ class LoginController extends GetxController {
         smsCode: pin);
     try{
       await auth.signInWithCredential(credential).then((value) async {
-        var user = UserModel()
-          ..phone = number
-          ..uid = value.user.uid
-          ..lat = _con.locationData.latitude
-          ..long = _con.locationData.longitude
-          ..address = _con.locationData.addressLine1
-          ..name = ' '
-          ..email = ' '
-          ..isMerchant = false;
-        await checkAndCreateUser(user);
+        await checkAndCreateUser(value.user.uid,number);
       });
     }
     on FirebaseAuthException catch(e){
@@ -117,18 +108,16 @@ class LoginController extends GetxController {
       Utility.showError('${e.message}');
     }
 
-
   }
 
-  Future<void> checkAndCreateUser(UserModel user) async {
-    await FirebaseRepository().checkProfileCreate(user.uid).then((value) async {
-      Get.put(UserService(), permanent: true,);
+  Future<void> checkAndCreateUser(String uid, String mobile) async {
+    await FirebaseRepository().checkProfileCreate(uid).then((value) async {
       Utility.printDLog('User created $value');
       if (value) {
+        Get.put(UserService(), permanent: true,);
         RoutesManagement.goToHome();
       } else {
-        await FirebaseRepository().addUser(user);
-        RoutesManagement.goToHome();
+        RoutesManagement.goToEditAddressScreen(mobile, uid);
       }
     });
   }

@@ -281,6 +281,9 @@ class CheckoutView extends StatelessWidget {
                             _controller.price + _controller.deliveryCharge)
                       ],
                     ),
+                    SizedBox(
+                      height: Dimens.twenty,
+                    ),
                     InkWell(
                       // onTap: (){
                       //   RoutesManagement.goToCheckout();

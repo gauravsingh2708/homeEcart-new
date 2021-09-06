@@ -9,8 +9,7 @@ import 'package:homeecart/app/data/network_model/user.dart';
 import 'package:homeecart/app/data/repository/firebase_repository.dart';
 import 'package:homeecart/app/utils/utility.dart';
 
-class UserService extends GetxController{
-
+class UserService extends GetxController {
   StreamSubscription cartStreamSubscription;
 
   /// Instance to store user details
@@ -23,7 +22,9 @@ class UserService extends GetxController{
   double deliveryCharge = 0.0;
 
   int count = 0;
-  bool isLoading =  true;
+  bool isLoading = true;
+
+  bool userCreated = false;
 
   /// Instance to get all firebase repository
   FirebaseRepository repo = FirebaseRepository();
@@ -37,6 +38,7 @@ class UserService extends GetxController{
     cartCount = 0;
     await getUserDetails();
     await countCartProduct();
+
     super.onInit();
   }
 
@@ -46,59 +48,68 @@ class UserService extends GetxController{
     super.onClose();
   }
 
-  void _addPostFrameCallback(){
+  Future<bool> checkUserCreated() async {
+    await repo.checkProfileCreate(userModel.uid).then((value) {
+      if (value) {
+        return true;
+      }
+    });
+    return false;
+  }
+
+  void _addPostFrameCallback() {
     Utility.printDLog('Stream Listen to Cart');
-    SchedulerBinding.instance.addPostFrameCallback((_){
-      cartStreamSubscription =
-          repo.cart().listen((QuerySnapshot ds) {
-            price = 0.0;
-            cartCount = 0;
-            // ignore: avoid_function_literals_in_foreach_calls
-            ds.docs.forEach((element) {
-              var model = CartProduct.fromJson(element.data());
-              productListInCart.add(model);
-              price += model.discountPrice * model.count;
-              cartCount += 1;
-              Utility.printDLog('${element.data()}');
-            });
-            update();
-          });
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      cartStreamSubscription = repo.cart().listen((QuerySnapshot ds) {
+        price = 0.0;
+        cartCount = 0;
+        // ignore: avoid_function_literals_in_foreach_calls
+        ds.docs.forEach((element) {
+          var model = CartProduct.fromJson(element.data());
+          productListInCart.add(model);
+          price += model.discountPrice * model.count;
+          cartCount += 1;
+          Utility.printDLog('${element.data()}');
+        });
+        update();
+      });
     });
   }
 
   Future<void> countCartProduct() async {
     Utility.showLoadingDialog();
-    await repo.countCartProduct().then((value){
+    await repo.countCartProduct().then((value) {
       productListInCart = value;
       Utility.closeDialog();
     });
-    cartCount = productListInCart.length ;
+    cartCount = productListInCart.length;
     calculatePrice();
     Utility.printDLog('Count of cart product is $cartCount');
     update();
   }
 
-  void calculatePrice(){
+  void calculatePrice() {
     Utility.printDLog('Calculate cart price ');
     price = 0.0;
-    for(var i in productListInCart){
+    for (var i in productListInCart) {
       price += i.count * i.discountPrice;
     }
     update();
   }
 
-  void addProductToCart(Product model)async {
-    if(!checkProductInCart(model.id)){
+  void addProductToCart(Product model) async {
+    if (!checkProductInCart(model.id)) {
       Utility.showLoadingDialog();
-      await repo.addProductToCart(model).whenComplete(() async{
+      await repo.addProductToCart(model).whenComplete(() async {
         // await countCartProduct();
-        Utility.closeDialog();});
+        Utility.closeDialog();
+      });
     }
   }
 
-  bool checkProductInCart(String id){
-    for(var i in productListInCart){
-      if(i.id == id){
+  bool checkProductInCart(String id) {
+    for (var i in productListInCart) {
+      if (i.id == id) {
         Utility.printDLog(' product present in cart}');
         return true;
       }
@@ -107,9 +118,9 @@ class UserService extends GetxController{
     return false;
   }
 
-  int indexOfProduct(String id){
-    for(var i = 0; i < productListInCart.length; i++ ){
-      if(productListInCart[i].id == id){
+  int indexOfProduct(String id) {
+    for (var i = 0; i < productListInCart.length; i++) {
+      if (productListInCart[i].id == id) {
         Utility.printDLog(' product present in cart}');
         return i;
       }
@@ -123,13 +134,13 @@ class UserService extends GetxController{
     update();
   }
 
-  void incrementProduct(String uid)async {
+  void incrementProduct(String uid) async {
     await repo.updateCountValue(uid, 1);
     await countCartProduct();
     update();
   }
 
-  void decrementProduct(String uid)async {
+  void decrementProduct(String uid) async {
     await repo.updateCountValue(uid, -1);
     await countCartProduct();
     update();

@@ -14,7 +14,7 @@ abstract class RoutesManagement{
 
   /// Go to the home screen.
   static void goToOtpScreen() {
-    Get.offNamed<void>(
+    Get.toNamed<void>(
         AppRoutes.otpScreen
     );
   }
@@ -25,13 +25,24 @@ abstract class RoutesManagement{
         AppRoutes.login
     );
   }
-  /// Go to the home screen.
+  /// Go to the category screen.
   static void goToCategoryScreen(String title, String id) {
     Get.toNamed<void>(
         AppRoutes.category,
       arguments: <String, dynamic>{
         'title': title,
         'id' : id
+      },
+    );
+  }
+
+  /// Go to the edit address screen.
+  static void goToEditAddressScreen(String mobile, String uid) {
+    Get.toNamed<void>(
+      AppRoutes.editAddress,
+      arguments: <String, dynamic>{
+        'mobile': mobile,
+        'uid' : uid
       },
     );
   }

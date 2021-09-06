@@ -14,7 +14,6 @@ class EditDetailsController extends GetxController {
 
   final AdminController _controller = Get.find();
 
-  List<String> categoryList = <String>['Oil '];
 
   /// Model to store product details
   Product product = Product();

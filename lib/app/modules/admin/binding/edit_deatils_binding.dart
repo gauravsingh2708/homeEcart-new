@@ -6,5 +6,4 @@ class EditDetailsBinding extends Bindings{
   void dependencies() {
     Get.lazyPut<EditDetailsController>(() => EditDetailsController());
   }
-
 }

@@ -11,6 +11,10 @@ class UserModel{
     lat = data['lat'] as double;
     long = data['long'] as double;
     address = data['address'] as String;
+    landmark = data['landmark'] as String;
+    pinCode = data['pincode'] as String;
+    country = data['country'] as String;
+    city = data['city'] as String;
   }
 
   String uid;
@@ -18,6 +22,10 @@ class UserModel{
   String email = ' ';
   String phone;
   String address;
+  String pinCode;
+  String landmark;
+  String city;
+  String country;
   bool isMerchant;
   double lat;
   double long;
@@ -32,6 +40,10 @@ class UserModel{
     data['lat'] = user.lat;
     data['long'] = user.long;
     data['address'] = user.address;
+    data['landmark'] = user.landmark;
+    data['city'] = user.city;
+    data['country'] = user.country;
+    data['pincode'] = user.pinCode;
     return data;
   }
 
