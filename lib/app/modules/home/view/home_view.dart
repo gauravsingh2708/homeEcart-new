@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:homeecart/app/modules/home/controller/home_controller.dart';
 import 'package:homeecart/app/modules/home/view/local_widget/bottom_navigation.dart';
-import 'package:homeecart/app/modules/home/view/page/bookings.dart';
 import 'package:homeecart/app/modules/home/view/page/home.dart';
 import 'package:homeecart/app/modules/home/view/page/profile.dart';
-import 'package:homeecart/app/modules/home/view/page/sc_safe.dart';
+import 'package:homeecart/app/modules/home/view/page/search.dart';
 
 class HomeView extends StatelessWidget {
   @override
@@ -17,9 +16,7 @@ class HomeView extends StatelessWidget {
         index: _controller.currentTab,
         children: [
           Home(),
-          Bookings(),
-          SCSafe(),
-          // Rewards(),
+          Search(),
           Profile()
         ],
       ),

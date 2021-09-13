@@ -21,6 +21,7 @@ abstract class AppRoutes{
   static const allCategory = _Paths.allCategory;
   static const editProfile = _Paths.editProfile;
   static const checkout = _Paths.checkout;
+  static const editProduct = _Paths.editProduct;
 }
 
 abstract class _Paths{
@@ -42,4 +43,5 @@ abstract class _Paths{
   static const addCategory = '/add_category';
   static const adminCategory = '/admin_category';
   static const editDetails = '/edit_details';
+  static const editProduct = '/edit_product';
 }

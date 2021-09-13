@@ -24,7 +24,7 @@ class FirebaseRepository {
 
 
   /// Return product stream
-  Stream<QuerySnapshot> product(String marketId) =>
+  Stream<QuerySnapshot> product() =>
       FirebaseFirestore.instance.collection(Fc.product).snapshots();
 
   /// Return order stream
@@ -141,6 +141,12 @@ class FirebaseRepository {
   Future<void> addUser(UserModel user) async {
     Utility.printDLog('User create function called');
     await userCollection.doc(user.uid).set(user.toJson(user));
+  }
+
+  /// Function to update user details
+  Future<void> updateUser(UserModel user) async {
+    Utility.printDLog('User create function called');
+    await userCollection.doc(user.uid).update(user.toJson(user));
   }
 
   Future<List<Category>> getAllCategory() async {

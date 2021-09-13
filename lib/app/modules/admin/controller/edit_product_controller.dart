@@ -1,7 +1,5 @@
 import 'dart:io';
 
-import 'package:homeecart/app/modules/admin/view/page/product.dart';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:homeecart/app/data/firebase_collection.dart';
@@ -15,15 +13,10 @@ import 'package:homeecart/app/utils/utility.dart';
 
 class EditProductController extends GetxController{
 
-  Products products = Get.arguments as Products;
+  Product product = Get.arguments as Product;
 
 
   final AdminController _controller = Get.find();
-
-  List<String> categoryList = <String>['Oil '];
-
-  /// Model to store product details
-  Product product = Product();
 
   /// Model to store category details
   Category category = Category();
@@ -41,8 +34,6 @@ class EditProductController extends GetxController{
   /// FormKey for addProductView
   final formKeyPro = GlobalKey<FormState>();
 
-  /// FormKey for addProductView
-  final formKeyCat = GlobalKey<FormState>();
 
   List<Category> allCategory = <Category>[];
 
@@ -64,46 +55,30 @@ class EditProductController extends GetxController{
     update();
   }
 
-  /// On pressed Add category
-  void addCategory() async {
-    if (file == null) {
-      Utility.showError('Select image');
-    }
-    if (formKeyCat.currentState.validate() && file != null) {
-      formKeyCat.currentState.save();
-      await fr.uploadImage(file, category.name).then((value) {
-        category.imageUrl = value;
-        fr.addCategory(category);
-      });
-    }
-  }
 
-  void addProduct() async {
-    if (proFile == null) {
-      Utility.showError('Select image');
-    }
-    if (category.name == null) {
-      Utility.showError('Select Category');
-    }
-    if (formKeyPro.currentState.validate() &&
-        proFile != null &&
-        category.name != null) {
+  void updateProduct() async {
+    if (formKeyPro.currentState.validate()) {
       formKeyPro.currentState.save();
-      product
-        ..categoryId = category.id
-        ..marketId = _controller.marketModel.uid
-        ..marketName = _controller.marketModel.name
-        ..categoryName = category.name;
       Utility.showLoadingDialog();
       Utility.printDLog('${product.toJson(product)}');
-      await fr.uploadImage(proFile, product.name).then((value) {
-        product.imageUrl = value;
-        fr.productCollection
-            .add(product.toJson(product))
+      if(proFile != null){
+        await fr.uploadImage(proFile, product.name).then((value) {
+          product.imageUrl = value;
+          fr.productCollection.doc(product.id)
+              .update(product.toJson(product))
+              .whenComplete((){
+            Utility.closeDialog();
+            Get.snackbar<void>('Product Updated', 'Success');});
+        });
+      }
+      else{
+        await fr.productCollection.doc(product.id)
+            .update(product.toJson(product))
             .whenComplete((){
           Utility.closeDialog();
-          Get.snackbar<void>('Product Added', 'Success');});
-      });
+          Get.snackbar<void>('Product Updated', 'Success');});
+      }
+
     }
   }
 
@@ -134,15 +109,5 @@ class EditProductController extends GetxController{
                 ))),
       ),
     ));
-  }
-
-  /// On pressed add product
-  void onSubmit() {
-    if (formKeyPro.currentState.validate()) {
-      formKeyPro.currentState.save();
-      FirebaseCollections.product
-          .add(Product().toJson(product))
-          .whenComplete(() => Get.snackbar<void>('Product Added', 'Success'));
-    }
   }
 }

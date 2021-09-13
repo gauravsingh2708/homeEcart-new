@@ -146,10 +146,7 @@ class HomeController extends GetxController {
 
   final List<BottomNavigationBarItem> tab = <BottomNavigationBarItem>[
     const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-    const BottomNavigationBarItem(icon: Icon(Icons.electrical_services_rounded), label: 'Services'),
     const BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-    // const BottomNavigationBarItem(
-    //     icon: Icon(Icons.account_balance_wallet_outlined), label: 'Rewards'),
     const BottomNavigationBarItem(
         icon: Icon(Icons.person_outline), label: 'Profile'),
   ];

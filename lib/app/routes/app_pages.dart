@@ -4,9 +4,12 @@ import 'package:homeecart/app/modules/add_details/view/add_category.dart';
 import 'package:homeecart/app/modules/add_details/view/add_product.dart';
 import 'package:homeecart/app/modules/admin/binding/admin_binding.dart';
 import 'package:homeecart/app/modules/admin/binding/edit_deatils_binding.dart';
+import 'package:homeecart/app/modules/admin/binding/edit_product_binding.dart';
+import 'package:homeecart/app/modules/admin/controller/edit_product_controller.dart';
 import 'package:homeecart/app/modules/admin/view/admin_view.dart';
 import 'package:homeecart/app/modules/admin/view/page/category.dart';
 import 'package:homeecart/app/modules/admin/view/page/edit_category.dart';
+import 'package:homeecart/app/modules/admin/view/page/edit_product.dart';
 import 'package:homeecart/app/modules/admin/view/page/product.dart';
 import 'package:homeecart/app/modules/cart/binding/cart_binding.dart';
 import 'package:homeecart/app/modules/cart/view/cart_view.dart';
@@ -156,5 +159,14 @@ abstract class AppPages {
       binding: CartBinding(),
       transition: Transition.downToUp,
     ),
+
+    GetPage(
+      name: _Paths.editProduct,
+      transitionDuration: transitionDuration,
+      page: () => EditProductView(),
+      binding: EditProductBinding(),
+      transition: Transition.downToUp,
+    ),
+
   ];
 }

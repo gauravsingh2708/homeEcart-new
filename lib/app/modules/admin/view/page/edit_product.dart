@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:homeecart/app/modules/add_details/controller/add_product_controller.dart';
+import 'package:homeecart/app/global_widgets/cached_image.dart';
 import 'package:homeecart/app/modules/admin/controller/edit_product_controller.dart';
 import 'package:homeecart/app/theme/theme.dart';
 
@@ -35,21 +35,7 @@ class EditProductView extends StatelessWidget {
                         _controller.proFile,
                         fit: BoxFit.cover,
                       )
-                          : Column(
-                        mainAxisAlignment:
-                        MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Icon(
-                            Icons.add,
-                            size: Dimens.fifty,
-                            color: Colors.grey,
-                          ),
-                          Text(
-                            'Add Photo',
-                            style: Styles.grey16,
-                          )
-                        ],
-                      ),
+                          :CachedImage(imageUrl: _controller.product.imageUrl,)
                     ),
                   ),
                   Dimens.boxHeight5,
@@ -66,7 +52,7 @@ class EditProductView extends StatelessWidget {
                             borderRadius: BorderRadius.circular(5)),
                         child: Center(
                           child: Text(
-                            _controller.category.name ?? 'Category',
+                            _controller.category.name ?? _controller.product.categoryName,
                             style: Styles.grey14,
                           ),
                         )),
@@ -74,8 +60,10 @@ class EditProductView extends StatelessWidget {
                   Dimens.boxHeight5,
                   TextFormField(
                     style: Styles.black18,
+                    initialValue: _controller.product.name,
                     decoration: InputDecoration(
                       hintText: 'Name',
+                      labelText: 'Name',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5),
                         borderSide: const BorderSide(
@@ -91,8 +79,10 @@ class EditProductView extends StatelessWidget {
                   Dimens.boxHeight5,
                   TextFormField(
                     style: Styles.black18,
+                    initialValue: _controller.product.desc,
                     decoration: InputDecoration(
                       hintText: 'Desc',
+                      labelText: 'Desc',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5),
                         borderSide: const BorderSide(
@@ -108,8 +98,10 @@ class EditProductView extends StatelessWidget {
                   Dimens.boxHeight5,
                   TextFormField(
                     style: Styles.black18,
+                    initialValue: '${_controller.product.purchasePrice}',
                     decoration: InputDecoration(
                       hintText: 'PurchasePrice',
+                      labelText: 'PurchasePrice',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5),
                         borderSide: const BorderSide(
@@ -127,8 +119,10 @@ class EditProductView extends StatelessWidget {
                   Dimens.boxHeight5,
                   TextFormField(
                     style: Styles.black18,
+                    initialValue: '${_controller.product.price}',
                     decoration: InputDecoration(
                       hintText: 'Price',
+                      labelText: 'Price',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5),
                         borderSide: const BorderSide(
@@ -146,8 +140,10 @@ class EditProductView extends StatelessWidget {
                   Dimens.boxHeight5,
                   TextFormField(
                     style: Styles.black18,
+                    initialValue: '${_controller.product.discountPrice}',
                     decoration: InputDecoration(
                       hintText: 'DiscountPrice',
+                      labelText: 'DiscountPrice',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5),
                         borderSide: const BorderSide(
@@ -165,8 +161,10 @@ class EditProductView extends StatelessWidget {
                   Dimens.boxHeight5,
                   TextFormField(
                     style: Styles.black18,
+                    initialValue: '${_controller.product.limit}',
                     decoration: InputDecoration(
                       hintText: 'Limit',
+                      labelText: 'Limit',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5),
                         borderSide: const BorderSide(
@@ -184,8 +182,10 @@ class EditProductView extends StatelessWidget {
                   Dimens.boxHeight5,
                   TextFormField(
                     style: Styles.black18,
+                    initialValue: '${_controller.product.count}',
                     decoration: InputDecoration(
                       hintText: 'Count',
+                      labelText: 'Count',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5),
                         borderSide: const BorderSide(
@@ -203,8 +203,10 @@ class EditProductView extends StatelessWidget {
                   Dimens.boxHeight5,
                   TextFormField(
                     style: Styles.black18,
+                    initialValue: '${_controller.product.weight}',
                     decoration: InputDecoration(
                       hintText: 'Weight',
+                      labelText: 'Weight',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5),
                         borderSide: const BorderSide(
@@ -224,9 +226,9 @@ class EditProductView extends StatelessWidget {
                   ),
                   ElevatedButton(
                       onPressed: () {
-                        _controller.addProduct();
+                        _controller.updateProduct();
                       },
-                      child: const Text('Submit'))
+                      child: const Text('Update'))
                 ],
               ),
             )),
